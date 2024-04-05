@@ -111,8 +111,4 @@ public class a8 extends bb {
         }
         return new Object[]{entity, R4V3NR4V3NR4V3NR4V3NR4V3N6};
     }
-
-    public static String own3r() {
-        return "blowsy";
-    }
 }

@@ -93,8 +93,4 @@ public class kk
     public boolean i(int x, int y) {
         return x > this.x && x < this.x + this.p.c4t.gw() && y > this.y && y < this.y + 11;
     }
-
-    public static String own3r() {
-        return "blowsy";
-    }
 }

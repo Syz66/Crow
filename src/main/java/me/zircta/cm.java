@@ -147,8 +147,4 @@ public class cm {
     public boolean v(int x, int y) {
         return x >= this.x && x <= this.x + this.k && y >= this.y && y <= this.y + this.bh;
     }
-
-    public static String own3r() {
-        return "blowsy";
-    }
 }

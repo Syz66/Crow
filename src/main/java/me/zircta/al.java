@@ -136,8 +136,4 @@ public class al extends bb {
             mc.thePlayer.rotationPitch = t[1] + 4.0f;
         }
     }
-
-    public static String own3r() {
-        return "blowsy";
-    }
 }
