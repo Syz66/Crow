@@ -1,5 +1,6 @@
 package me.zircta.crow.modules.impl.movement;
 
+import me.zircta.crow.modules.api.Category;
 import me.zircta.crow.modules.api.Module;
 
 // TODO: Improve
@@ -8,7 +9,7 @@ public class Fly extends Module {
     private int b;
 
     public Fly() {
-        super("Fly", Module.category.movement, 0);
+        super("Fly", Category.Movement, 0);
     }
 
     @Override

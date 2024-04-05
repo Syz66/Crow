@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import me.zircta.crow.gui.comps.impl.CategoryComp;
 import me.zircta.crow.gui.comps.api.Comp;
-import me.zircta.crow.modules.api.Module;
+import me.zircta.crow.modules.api.Category;
 import net.minecraft.client.gui.GuiScreen;
 
 public class ClickGui extends GuiScreen {
@@ -15,7 +15,7 @@ public class ClickGui extends GuiScreen {
     public ClickGui() {
         c4tL1st = new ArrayList<>();
         int y = 5;
-        for (Module.category c : Module.category.values()) {
+        for (Category c : Category.values()) {
             CategoryComp f = new CategoryComp(c);
             f.y(y);
             c4tL1st.add(f);
@@ -33,7 +33,7 @@ public class ClickGui extends GuiScreen {
         this.drawCenteredString(this.fontRendererObj, "v", this.width / 2, this.height / 4 - 5, Color.HSBtoRGB((float)((System.currentTimeMillis() + 900L) % 5000L) / 4750.0f, 0.8f, 0.8f));
         this.drawCenteredString(this.fontRendererObj, "e", this.width / 2, this.height / 4 + 5, Color.HSBtoRGB((float)((System.currentTimeMillis() + 600L) % 5000L) / 4750.0f, 0.8f, 0.8f));
         this.drawCenteredString(this.fontRendererObj, "n", this.width / 2, this.height / 4 + 15, Color.HSBtoRGB((float)((System.currentTimeMillis() + 300L) % 5000L) / 4750.0f, 0.8f, 0.8f));
-        this.drawCenteredString(this.fontRendererObj, "b1", this.width / 2 + 1, this.height / 4 + 30, Color.HSBtoRGB((float)((System.currentTimeMillis() + 0L) % 5000L) / 4750.0f, 0.8f, 0.8f));
+        this.drawCenteredString(this.fontRendererObj, "b1", this.width / 2 + 1, this.height / 4 + 30, Color.HSBtoRGB((float)((System.currentTimeMillis()) % 5000L) / 4750.0f, 0.8f, 0.8f));
         for (CategoryComp c4t : c4tL1st) {
             c4t.rf(this.fontRendererObj);
             c4t.up(x, y);

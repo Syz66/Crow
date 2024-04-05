@@ -15,7 +15,7 @@ import org.lwjgl.opengl.GL11;
 import java.awt.*;
 
 public class GuiUtils extends Gui {
-    private static Minecraft mc = Minecraft.getMinecraft();
+    private static final Minecraft mc = Minecraft.getMinecraft();
     private static int c1;
     private static int c2;
     private static int c3;
@@ -29,7 +29,7 @@ public class GuiUtils extends Gui {
                     GL11.glPushMatrix();
                     int y = 62;
                     long rnbw = 0L;
-                    for (Module m3 : ModuleManager.modsList) {
+                    for (Module m3 : ModuleManager.getModules()) {
                         if (m3 == null || m3.getClass().equals(HUD.class) || m3.getClass().equals(AutoConfig.class) || !m3.isEnabled()) continue;
                         GuiUtils.mc.fontRendererObj.drawString(m3.g3tN4m3(), 2, y, Color.HSBtoRGB((float)((System.currentTimeMillis() + rnbw) % 5000L) / 4750.0f, 0.8f, 0.8f));
                         y += 12;

@@ -1,5 +1,6 @@
 package me.zircta.crow.modules.impl.combat;
 
+import me.zircta.crow.modules.api.Category;
 import me.zircta.crow.modules.api.Module;
 import me.zircta.crow.modules.settings.impl.Slider;
 import me.zircta.crow.utils.PlayerUtils;
@@ -22,7 +23,7 @@ public class AimAssist extends Module {
     public static CheckBox g;
 
     public AimAssist() {
-        super("AimAssist", Module.category.combat, 0);
+        super("AimAssist", Category.Combat, 0);
         a = new Slider("Speed", 45.0, 10.0, 100.0, 1.0);
         b = new Slider("FOV", 90.0, 15.0, 180.0, 1.0);
         c = new Slider("Distance", 4.5, 1.0, 10.0, 0.5);
@@ -68,51 +69,47 @@ public class AimAssist extends Module {
     public Entity j() {
         Entity k = null;
         int f = (int)b.getInput();
-        for (Object loadedEntites : mc.theWorld.loadedEntityList) {
-            Entity l = (Entity)loadedEntites;
-            if (!l.isEntityAlive() || l == mc.thePlayer || !((double)mc.thePlayer.getDistanceToEntity(l) <= c.getInput()) || !(l instanceof EntityLivingBase)) continue;
+        for (Entity loadedEntites : mc.theWorld.loadedEntityList) {
+            if (!loadedEntites.isEntityAlive() || loadedEntites == mc.thePlayer || !((double)mc.thePlayer.getDistanceToEntity(loadedEntites) <= c.getInput()) || !(loadedEntites instanceof EntityLivingBase)) continue;
             if (!g.isToggled()) {
-                if (!o(l, f)) continue;
+                if (!o(loadedEntites, f)) continue;
                 if (AimAssist.f.isToggled()) {
-                    k = l;
-                    f = (int)n(l);
+                    k = loadedEntites;
+                    f = (int)n(loadedEntites);
                     continue;
                 }
-                if (l.isInvisible()) continue;
-                k = l;
-                f = (int)n(l);
+                if (loadedEntites.isInvisible()) continue;
+                k = loadedEntites;
+                f = (int)n(loadedEntites);
                 continue;
             }
             if (AimAssist.f.isToggled()) {
-                k = l;
-                f = (int)n(l);
+                k = loadedEntites;
+                f = (int)n(loadedEntites);
                 continue;
             }
-            if (l.isInvisible()) continue;
-            k = l;
-            f = (int)n(l);
+            if (loadedEntites.isInvisible()) continue;
+            k = loadedEntites;
+            f = (int)n(loadedEntites);
         }
         return k;
     }
 
-    public static float m(Entity ent) {
+    public static double m(Entity ent) {
         double x = ent.posX - mc.thePlayer.posX;
-        double y = ent.posY - mc.thePlayer.posY;
         double z = ent.posZ - mc.thePlayer.posZ;
         double yaw = Math.atan2(x, z) * 57.2957795;
         yaw = -yaw;
-        double pitch = Math.asin(y / Math.sqrt(x * x + y * y + z * z)) * 57.2957795;
-        pitch = -pitch;
-        return (float)yaw;
+        return yaw;
     }
 
     public static double n(Entity en) {
-        return ((double)(mc.thePlayer.rotationYaw - m(en)) % 360.0 + 540.0) % 360.0 - 180.0;
+        return ((mc.thePlayer.rotationYaw - m(en)) % 360.0 + 540.0) % 360.0 - 180.0;
     }
 
     public static boolean o(Entity entity, float b) {
         b = (float)((double)b * 0.5);
-        double v = ((double)(mc.thePlayer.rotationYaw - m(entity)) % 360.0 + 540.0) % 360.0 - 180.0;
+        double v = ((mc.thePlayer.rotationYaw - m(entity)) % 360.0 + 540.0) % 360.0 - 180.0;
         return v > 0.0 && v < (double)b || (double)(-b) < v && v < 0.0;
     }
 
@@ -122,17 +119,16 @@ public class AimAssist extends Module {
             return null;
         }
         double diffX = q.posX - mc.thePlayer.posX;
-        if (q instanceof EntityLivingBase) {
-            EntityLivingBase EntityLivingBase2 = (EntityLivingBase)q;
+        if (q instanceof EntityLivingBase EntityLivingBase2) {
             diffY = EntityLivingBase2.posY + (double)EntityLivingBase2.getEyeHeight() * 0.9 - (mc.thePlayer.posY + (double)mc.thePlayer.getEyeHeight());
         } else {
             diffY = (q.getEntityBoundingBox().minY + q.getEntityBoundingBox().maxY) / 2.0 - (mc.thePlayer.posY + (double)mc.thePlayer.getEyeHeight());
         }
         double diffZ = q.posZ - mc.thePlayer.posZ;
-        double dist = MathHelper.sqrt_double((double)(diffX * diffX + diffZ * diffZ));
+        double dist = MathHelper.sqrt_double(diffX * diffX + diffZ * diffZ);
         float yaw = (float)(Math.atan2(diffZ, diffX) * 180.0 / Math.PI) - 90.0f;
         float pitch = (float)(-(Math.atan2(diffY, dist) * 180.0 / Math.PI));
-        return new float[]{mc.thePlayer.rotationYaw + MathHelper.wrapAngleTo180_float((float)(yaw - mc.thePlayer.rotationYaw)), mc.thePlayer.rotationPitch + MathHelper.wrapAngleTo180_float((float)(pitch - mc.thePlayer.rotationPitch))};
+        return new float[]{mc.thePlayer.rotationYaw + MathHelper.wrapAngleTo180_float(yaw - mc.thePlayer.rotationYaw), mc.thePlayer.rotationPitch + MathHelper.wrapAngleTo180_float(pitch - mc.thePlayer.rotationPitch)};
     }
 
     public static void r(Entity s) {

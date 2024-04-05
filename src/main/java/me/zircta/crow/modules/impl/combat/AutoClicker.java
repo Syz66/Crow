@@ -1,5 +1,6 @@
 package me.zircta.crow.modules.impl.combat;
 
+import me.zircta.crow.modules.api.Category;
 import me.zircta.crow.modules.api.Module;
 import me.zircta.crow.modules.settings.impl.Slider;
 import me.zircta.crow.utils.PlayerUtils;
@@ -33,7 +34,7 @@ public class AutoClicker extends Module
     private final Random rand = new Random();
 
     public AutoClicker() {
-        super("AutoClicker", Module.category.combat, 0);
+        super("AutoClicker", Category.Combat, 0);
         this.registerSetting(minCPS = new Slider("Min CPS", 9.0, 1.0, 25.0, 0.5));
         this.registerSetting(maxCPS = new Slider("Max CPS", 12.0, 1.0, 25.0, 0.5));
         this.registerSetting(jitter = new Slider("Jitter", 0.0, 0.0, 3.0, 0.1));

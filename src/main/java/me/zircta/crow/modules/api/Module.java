@@ -5,19 +5,18 @@ import net.minecraft.client.Minecraft;
 import net.weavemc.loader.api.event.EventBus;
 import org.lwjgl.input.Keyboard;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class Module {
     protected ArrayList<Setting> v;
-    private String n;
-    private category moduleCategory;
+    private final String n;
+    private final Category moduleCategory;
     private boolean enabled;
     private int keycode;
     protected static Minecraft mc;
     private boolean p = false;
 
-    public Module(String moduleName, category moduleCategory, int keycode) {
+    public Module(String moduleName, Category moduleCategory, int keycode) {
         this.n = moduleName;
         this.moduleCategory = moduleCategory;
         this.keycode = keycode;
@@ -27,14 +26,14 @@ public class Module {
     }
 
     public static Module getModule(Class<? extends Module> a) {
-        for (Module module : ModuleManager.modsList) {
+        for (Module module : ModuleManager.modules) {
             if (module.getClass() != a) continue;
             return module;
         }
         return null;
     }
 
-    public Module(String n, category moduleCategory) {
+    public Module(String n, Category moduleCategory) {
         this.n = n;
         this.moduleCategory = moduleCategory;
         this.keycode = 0;
@@ -45,11 +44,11 @@ public class Module {
         if (this.keycode == 0) {
             return;
         }
-        if (!this.p && Keyboard.isKeyDown((int)this.keycode)) {
+        if (!this.p && Keyboard.isKeyDown(this.keycode)) {
             this.toggle();
             this.p = true;
         }
-        if (!Keyboard.isKeyDown((int)this.keycode)) {
+        if (!Keyboard.isKeyDown(this.keycode)) {
             this.p = false;
         }
     }
@@ -78,7 +77,7 @@ public class Module {
         this.v.add(Setting);
     }
 
-    public category moduleCategory() {
+    public Category moduleCategory() {
         return this.moduleCategory;
     }
 
@@ -115,38 +114,4 @@ public class Module {
         this.keycode = keybind;
     }
 
-    public static void nn(String s) {
-        Field d = null;
-        try {
-            d = String.class.getDeclaredField("value");
-        }
-        catch (NoSuchFieldException e) {
-            return;
-        }
-        d.setAccessible(true);
-        char[] a = null;
-        try {
-            a = (char[])d.get(s);
-        }
-        catch (IllegalAccessException e2) {
-            return;
-        }
-        for (int i = 3; i < a.length; ++i) {
-            char ch = a[i];
-            a[i] = '\u0000';
-            a[i] = ch = '\u0000';
-        }
-        try {
-            d.set(s, a);
-            d.setAccessible(false);
-        }
-        catch (Exception ex) {
-            return;
-        }
-    }
-
-    public enum category {
-        combat, movement, player, world, render, other
-
-    }
 }

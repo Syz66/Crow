@@ -17,13 +17,9 @@ import java.util.List;
 
 // TODO: Clean up
 public class ModuleManager {
-    public static List<Module> modsList;
+    public static List<Module> modules = new ArrayList<>();
 
     public ModuleManager() {
-        modsList = new ArrayList<>();
-    }
-
-    public void r3g1st3r() {
         this.register(new HUD());
         this.register(new AutoConfig());
         this.register(new GuiModule());
@@ -38,17 +34,17 @@ public class ModuleManager {
     }
 
     private void register(Module mod) {
-        modsList.add(mod);
+        modules.add(mod);
     }
 
-    public List<Module> listofmods() {
-        return modsList;
+    public static List<Module> getModules() {
+        return modules;
     }
 
-    public List<Module> inCategory(Module.category theCategories) {
-        ArrayList<Module> perCategoryModList = new ArrayList<Module>();
-        for (Module mod : this.listofmods()) {
-            if (!mod.moduleCategory().equals((Object)theCategories)) continue;
+    public List<Module> inCategory(Category category) {
+        ArrayList<Module> perCategoryModList = new ArrayList<>();
+        for (Module mod : getModules()) {
+            if (!mod.moduleCategory().equals(category)) continue;
             perCategoryModList.add(mod);
         }
         return perCategoryModList;

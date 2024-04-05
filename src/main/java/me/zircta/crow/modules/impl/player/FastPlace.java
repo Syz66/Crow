@@ -1,5 +1,6 @@
 package me.zircta.crow.modules.impl.player;
 
+import me.zircta.crow.modules.api.Category;
 import me.zircta.crow.modules.api.Module;
 import me.zircta.crow.utils.PlayerUtils;
 import me.zircta.crow.modules.impl.other.SelfDestruct;
@@ -11,7 +12,7 @@ import java.lang.reflect.Field;
 
 public class FastPlace extends Module {
     public FastPlace() {
-        super("FastPlace", Module.category.player, 0);
+        super("FastPlace", Category.Player, 0);
     }
 
     @SubscribeEvent

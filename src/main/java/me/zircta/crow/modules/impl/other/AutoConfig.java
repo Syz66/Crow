@@ -1,5 +1,6 @@
 package me.zircta.crow.modules.impl.other;
 
+import me.zircta.crow.modules.api.Category;
 import me.zircta.crow.modules.api.Module;
 import me.zircta.crow.modules.impl.combat.AutoClicker;
 import me.zircta.crow.modules.impl.combat.Reach;
@@ -7,24 +8,17 @@ import me.zircta.crow.modules.impl.combat.Velocity;
 import me.zircta.crow.modules.settings.impl.CheckBox;
 
 public class AutoConfig extends Module {
-    public static CheckBox a1;
-    public static CheckBox a2;
-    public static CheckBox a3;
-    public static CheckBox a4;
-    public static boolean a5;
-    public static boolean a6;
+    public static CheckBox a1, a2, a3, a4;
+
+    public static boolean a5, a6;
     public static int a7;
 
     public AutoConfig() {
-        super("AutoConfig", Module.category.other, 0);
-        a1 = new CheckBox("Consider Ping", true);
-        a2 = new CheckBox("Configure Reach", true);
-        a3 = new CheckBox("Configure Velocity", true);
-        a4 = new CheckBox("Configure AutoClicker", true);
-        this.registerSetting(a1);
-        this.registerSetting(a2);
-        this.registerSetting(a3);
-        this.registerSetting(a4);
+        super("AutoConfig", Category.Other, 0);
+        this.registerSetting(a1 = new CheckBox("Consider Ping", true));
+        this.registerSetting(a2 = new CheckBox("Configure Reach", true));
+        this.registerSetting(a3 = new CheckBox("Configure Velocity", true));
+        this.registerSetting(a4 = new CheckBox("Configure AutoClicker", true));
     }
 
     @Override

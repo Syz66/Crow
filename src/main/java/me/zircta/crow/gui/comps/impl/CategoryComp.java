@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import me.zircta.crow.Main;
 import me.zircta.crow.gui.comps.api.Comp;
+import me.zircta.crow.modules.api.Category;
 import me.zircta.crow.modules.api.Module;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
@@ -12,21 +13,21 @@ import org.lwjgl.opengl.GL11;
 
 public class CategoryComp {
     public ArrayList<Comp> c = new ArrayList<>();
-    public Module.category categoryName;
+    public Category categoryName;
     private boolean categoryOpened;
     private int k;
     private int y;
     private int x;
-    private int bh;
+    private final int bh;
     private boolean id;
     public int xx;
     public int yy;
     public boolean n4m = false;
     public String pvp;
     public boolean pin = false;
-    private int chromaSpeed;
+    private final int chromaSpeed;
 
-    public CategoryComp(Module.category category2) {
+    public CategoryComp(Category category2) {
         this.categoryName = category2;
         this.k = 92;
         this.x = 5;
@@ -37,24 +38,11 @@ public class CategoryComp {
         this.id = false;
         this.chromaSpeed = 3;
         int tY = this.bh + 3;
-        for (Module mod : Main.c.getm0dmanager().inCategory(this.categoryName)) {
+        for (Module mod : Main.moduleManager.inCategory(this.categoryName)) {
             ModuleComp b2 = new ModuleComp(mod, this, tY);
             this.c.add(b2);
             tY += 16;
         }
-    }
-
-    public CategoryComp(String d) {
-        this.k = 92;
-        this.x = 5;
-        this.y = 5;
-        this.bh = 13;
-        this.xx = 0;
-        this.categoryOpened = false;
-        this.id = false;
-        int tY = this.bh;
-        this.pvp = d;
-        this.n4m = true;
     }
 
     public ArrayList<Comp> gc() {
@@ -96,7 +84,7 @@ public class CategoryComp {
             for (Comp c : this.c) {
                 h += c.gh();
             }
-            Gui.drawRect((int)(this.x - 2), (int)this.y, (int)(this.x + this.k + 2), (int)(this.y + this.bh + h + 4), (int)0x44000000);
+            Gui.drawRect(this.x - 2, this.y, this.x + this.k + 2, this.y + this.bh + h + 4, 0x44000000);
         }
         CheckBoxComp.d(this.x - 2, this.y, this.x + this.k + 2, this.y + this.bh + 3, -1);
         renderer.drawString(this.n4m ? this.pvp : this.categoryName.name(), (float)(this.x + 2), (float)(this.y + 4), Color.getHSBColor((float)(System.currentTimeMillis() % (7500L / (long)this.chromaSpeed)) / (7500.0f / (float)this.chromaSpeed), 1.0f, 1.0f).getRGB(), false);
